@@ -22,4 +22,4 @@ api:
   insecure: true
 
 log:
-  level: INFO
+  level: DEBUG
