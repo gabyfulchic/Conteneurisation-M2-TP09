@@ -1,0 +1,23 @@
+# ./traefik.yaml
+:global:
+  sendAnonymousUsage: false
+
+providers:
+  docker:
+    exposedByDefault: false
+    httpClientTimeout: 300
+    network: br01
+
+file:
+  filename: /dynamic.yaml
+  watch: true
+
+entryPoints:
+  br01:
+    address: ":80"
+
+api:
+  insecure: true
+
+log:
+  level: INFO

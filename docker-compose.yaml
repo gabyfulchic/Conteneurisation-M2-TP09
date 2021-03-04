@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  traefik:
+    image: traefik:2.4.5
+    container_name: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yaml:/traefik.yaml
+      - ./dynamic.yaml:/dynamic.yaml
+    networks:
+      - br01
+
+  portainer:
+    image: portainer/portainer-ce:2.1.1
+    container_name: portainer
+    command: "--admin-password='$$2y$$05$$Mr0lCftiRkaQKHHC2o4wheK5sBgUWEb44POBldSwZpjFmBIUKi8gG'"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.docker.localhost`)"
+      - "traefik.http.routers.portainer.entrypoints=br01"
+    networks:
+      - br01
+
+networks:
+  br01:
+    name: br01
+    driver: bridge
+
+# Faire attention à ne pas utiliser "docker-compose down -v" auquel cas le volumes sera détruit.
+volumes:
+  portainer_data:

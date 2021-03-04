@@ -1,0 +1,13 @@
+# ./dynamic.yaml
+http:
+  middlewares:
+    redirecthttps:
+      redirectScheme:
+        scheme: "https"
+        permanent: true
+
+auth:
+  basicAuth:
+    users: [
+      "admin:$2y$05$Mr0lCftiRkaQKHHC2o4wheK5sBgUWEb44POBldSwZpjFmBIUKi8gG",
+    ]
