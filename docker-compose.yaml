@@ -11,6 +11,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik.yaml:/traefik.yaml
       - ./dynamic.yaml:/dynamic.yaml
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.localhost`)"
     networks:
       - br01
 
@@ -23,8 +26,9 @@ services:
       - portainer_data:/data
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.portainer.rule=Host(`portainer.docker.localhost`)"
-      - "traefik.http.routers.portainer.entrypoints=br01"
+      - "traefik.http.routers.portainer.entrypoints=http"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.localhost`)"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
     networks:
       - br01
 

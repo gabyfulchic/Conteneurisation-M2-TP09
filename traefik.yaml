@@ -13,8 +13,10 @@ file:
   watch: true
 
 entryPoints:
-  br01:
+  http:
     address: ":80"
+  https:
+    address: ":443"
 
 api:
   insecure: true
