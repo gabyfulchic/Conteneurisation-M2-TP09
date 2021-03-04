@@ -8,9 +8,9 @@ providers:
     httpClientTimeout: 300
     network: br01
 
-file:
-  filename: /dynamic.yaml
-  watch: true
+  file:
+    filename: /dynamic.yaml
+    watch: true
 
 entryPoints:
   http:
